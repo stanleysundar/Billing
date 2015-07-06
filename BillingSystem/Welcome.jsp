@@ -1,50 +1,46 @@
 <%@page import="com.verizon.bs.forms.Customer"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<script>
- function goBack() {
-     window.history.back();
- }
-</script>
+<link href="mainstyle.css" rel="stylesheet" type="text/css" />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>View Customer Details</title>
 </head>
-<body>
+<%@include file="HeaderPage.jsp" %>
+<table broder="0">
+<tr><td>
+<%@include file="SideMenu.jsp" %>
+</td>
+
+<td align="center" width="100%">
+<br><br><br><br><br><br>
+
 <%
     Customer customer=(Customer)request.getAttribute("cust");
 %>
-<table align="center" bgcolor="#FFFFCC" border="1" width="70%">
+<table align="center" bgcolor="#ededed" border="1" width="50%">
     <tr>
-        <td colspan="2" align="center"><%="Welcome "+customer.getName()+" !!!!. Your details Processed." %></td>
+        <td colspan="2" align="center" class="normalStyleHeader"><%="Welcome "+customer.getName()+"!!!!. Your details Processed." %></td>
+    </tr>
+    <tr >
+        <td class="normalStyleHeader" width="30%">Customer Name </td>
+        <td class="normalStyle"><%=customer.getName()%></td>
     </tr>
     <tr>
-        <td>Name </td>
-        <td><%=customer.getName()%></td>
+        <td class="normalStyleHeader">Address </td>
+        <td class="normalStyle"><%=customer.getAddress() %></td>
     </tr>
     <tr>
-        <td>Address </td>
-        <td><%=customer.getAddress() %></td>
+        <td class="normalStyleHeader">Mobile </td>
+        <td class="normalStyle"><%=String.valueOf(customer.getMobile()) %></td>
     </tr>
     <tr>
-        <td>Mobile </td>
-        <td><%=String.valueOf(customer.getMobile()) %></td>
-    </tr>
-    <tr>
-        <td>EmailId </td>
-        <td><%=customer.getEmailid() %></td>
+        <td class="normalStyleHeader">Email Id </td>
+        <td class="normalStyle"><%=customer.getEmailid() %></td>
     </tr>
    
 </table>
-<table align="center" width="70%">
-	<tr align="center">
-	<td><button onclick="goBack()">Go Back</button></td>
-		
-	</tr>
-</table>
-	
 
-</body>
+</td></tr></table>
 </html>

@@ -23,7 +23,7 @@ public class Database {
  
 	try {
 		connection = DriverManager
-		.getConnection("jdbc:mysql://localhost:3306/bs100","root", "admin");
+		.getConnection("jdbc:mysql://localhost:3306/bs100","root", "root");
  
 	} catch (SQLException e) {
 		System.out.println("Connection Failed! Check output console");

@@ -15,30 +15,23 @@ import javax.servlet.http.HttpServletResponse;
 import com.verizon.bs.forms.Customer;
 import com.verizon.bs.utils.Database;
  
-public class InsertCustomerServlet extends HttpServlet{
+public class InsertCustProviderDetailServlet extends HttpServlet{
  
     private static final long serialVersionUID = 1L;
     public void doPost(HttpServletRequest request, HttpServletResponse response){
-        System.out.println("----- InsertCustomerServlet -----");
+        System.out.println("----- InsertCustProviderDetailServlet -----");
         try {
         // Get the customer value submitted from Customer.jsp page through HttpServletRequest object
-            String name=request.getParameter("name");
-            String address=request.getParameter("address");
-            String mobile=request.getParameter("mobile");
-            String emailid=request.getParameter("emailid");
-           // String sm_id =  request.getParameter("sm_id");
-            //Set the Customer values into Customer Bean or POJO(Plain Old Java Object) class
-            Customer customer=new Customer();
-            customer.setName(name);
-            customer.setAddress(address);
-            customer.setMobile(Long.valueOf(mobile));
-            customer.setEmailid(emailid);
-           // customer.setSm_id(sm_id);
-            saveCustomer(customer);
-            RequestDispatcher dispatcher=request.getRequestDispatcher("/Welcome.jsp");
+            String custId=request.getParameter("custId");
+            String providerId=request.getParameter("providerId");
+            String smId=request.getParameter("smId");
+            String currencyType=request.getParameter("currencyType");
+       
+            saveCustomer(custId, providerId, smId, currencyType);
+            RequestDispatcher dispatcher=request.getRequestDispatcher("/CustProviderSuccess.jsp");
             //Set the customer instance into request.Then only the customer object 
             //will be available in the Welcome.jsp page
-            request.setAttribute("cust",customer);
+            request.setAttribute("smId",smId);
             dispatcher.forward(request, response);
         } catch (ServletException e) {
             e.printStackTrace();
@@ -50,20 +43,20 @@ public class InsertCustomerServlet extends HttpServlet{
          
     }
     
-    public boolean saveCustomer(Customer cust)
+    public boolean saveCustomer(String custId, String providerId, String smId, String currencyType)
     {
     	boolean status = false;
     	PreparedStatement ps_save = null;
-    	String saveQuery = "insert into customer (name,address,email,phone) values (?,?,?,?)";
+    	String saveQuery = "insert into customer_service (cust_id,provider_id,sm_id,currency_type) values (?,?,?,?)";
     	Connection conn = null;
     	try
     	{
     		conn = Database.getConnection();
     		ps_save = conn.prepareStatement(saveQuery);
-    		ps_save.setString(1, cust.getName());    		
-    		ps_save.setString(2, cust.getAddress());
-    		ps_save.setString(3, cust.getEmailid());
-    		ps_save.setLong(4, cust.getMobile());
+    		ps_save.setString(1, custId);    		
+    		ps_save.setString(2, providerId);
+    		ps_save.setString(3, smId);
+    		ps_save.setString(4, currencyType);
     		int count = ps_save.executeUpdate();
     		if(count > 0)
     		{
